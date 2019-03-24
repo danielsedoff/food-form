@@ -1,0 +1,205 @@
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+table {
+    border-collapse: collapse; 
+    border:1px solid black;
+} 
+table td{
+    border:1px solid black;
+    padding:5px;
+    text-align: center;
+    padding-top:19px;
+    padding-bottom:19px;
+    font-size:50px;
+    font-family:sans;
+}
+
+</style>
+
+<script>
+
+function aClick(what){
+ theEntry = document.getElementById(what);
+ theSiblings = theEntry.parentNode.childNodes;
+ for(i = 0; i < theSiblings.length; ++i) {
+  if (theSiblings[i].style){
+   theSiblings[i].style.backgroundColor = "white";
+  };
+ }
+ theEntry.style.backgroundColor = "aquamarine";
+}
+
+function clearRes(){
+ location.reload(); 
+}
+
+function readHistory() {
+ window.open("fform.php?uu364=a83oygvz70","_self");
+}
+
+function sendRes(){
+ send = document.getElementById("send");
+ if(send.style.backgroundColor == "yellow") {
+  return;
+ }
+ var now = new Date().toLocaleDateString('ru-RU', {
+    day : 'numeric',
+    month : 'numeric',
+    year : 'numeric',
+    hour : 'numeric',
+    minute: 'numeric'
+}); 
+
+postText = now + " ";
+
+ all = document.getElementsByTagName("*");
+ for (i = 0, max = all.length; i < max; i++) {
+  if(all[i].style.backgroundColor == "aquamarine") {
+   postText += all[i].innerHTML + "; ";
+  }
+ }
+ postText +=  "end; \n";
+ var xhr = new XMLHttpRequest();
+ 
+ var postMsg = 'the_entry=' + encodeURIComponent(postText);
+
+ xhr.open("POST", 'fform.php', true);
+ xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+ xhr.onreadystatechange = function() { // (3)
+   if (xhr.readyState != 4) return;
+
+   send.innerHTML = 'Sending...';
+
+   if (xhr.status != 200) {
+     send.innerHTML = xhr.status + ': ' + xhr.statusText;
+   } else {
+     send.innerHTML = xhr.responseText;
+     if (send.innerHTML.indexOf("Success") != -1) {
+      send.style.backgroundColor = "yellow";
+     }
+   }
+
+ }
+
+ xhr.send(postMsg);
+}
+
+
+</script>
+
+</head>
+
+<body>
+
+<table width="100%">
+<tr>
+<td style=" font-size:55px; font-weight:bold;">The Simple Food Form</td>
+</tr>
+</table>
+
+<table width="100%">
+<tr>
+<td style="background-color:#E5E5E5;">Time</td>
+</tr>
+</table>
+
+<table width="100%" border="1">
+<tr>
+<td id="breakfast" width="25%" onmousedown="aClick('breakfast');">Breakfast</td>
+<td id="lunch" width="25%" onmousedown="aClick('lunch');">Lunch</td>
+<td id="dinner" width="25%" onmousedown="aClick('dinner');">Dinner</td>
+<td id="supper" width="25%" onmousedown="aClick('supper');" style="background-color:aquamarine;">Supper</td>
+</tr>
+</table>
+
+<table width="100%" border="1">
+<tr>
+<td style="background-color:#E5E5E5;">Snacks since the previous meal:</td>
+</tr>
+</table>
+
+<table width="100%" border="1">
+<tr>
+<td width="50%" id="nosnack" onmousedown="aClick('nosnack');">No</td>
+<td width="50%" id="asnack" style="background-color:aquamarine;" onmousedown="aClick('asnack');">Yes</td>
+</tr>
+</table>
+
+<table width="100%" border="1">
+<tr>
+<td style="background-color:#E5E5E5;">Content:</td>
+</tr>
+</table>
+
+<table width="100%" border="1">
+<tr>
+<td id="veggies" width="20%" onmousedown="aClick('veggies');">Veggies</td>
+<td id="sushi" width="20%" onmousedown="aClick('sushi');">Sushi</td>
+<td id="steak" width="20%" onmousedown="aClick('steak');">Steak</td>
+<td id="burger" width="20%" onmousedown="aClick('burger');">Burger</td>
+<td id="donut" width="20%" style="background-color:aquamarine;" onmousedown="aClick('donut');">Donut</td>
+</tr>
+</table>
+
+<table width="100%" border="1">
+<tr>
+<td style="background-color:#E5E5E5;">Portion size:</td>
+</tr>
+</table>
+
+<table width="100%" border="1">
+<tr>
+<td id="meal14" width="20%" onmousedown="aClick('meal14');">1/4</td>
+<td id="meal12" width="20%" onmousedown="aClick('meal12');">1/2</td>
+<td id="meal1" width="20%" onmousedown="aClick('meal1');">1 meal</td>
+<td id="meal2" width="20%" onmousedown="aClick('meal2');">Double</td>
+<td id="meal4" width="20%" style="background-color:aquamarine;" onmousedown="aClick('meal4');">Giant</td>
+</tr>
+</table>
+
+<table width="100%" border="1">
+<tr>
+<td style="background-color:#E5E5E5;">Price paid now or earlier:</td>
+</tr>
+</table>
+
+<table width="100%" border="1">
+<tr>
+<td id="a50" width="20%" onmousedown="aClick('a50');">50</td>
+<td id="a150" width="20%" onmousedown="aClick('a150');">150</td>
+<td id="a300" width="20%" onmousedown="aClick('a300');">300</td>
+<td id="a500" width="20%" onmousedown="aClick('a500');">500</td>
+<td id="a900p" width="20%" style="background-color:aquamarine;" onmousedown="aClick('a900p');">900+</td>
+</tr>
+</table>
+
+<table width="100%" border="1">
+<tr>
+<td></td>
+</tr>
+</table>
+
+<table width="100%" border="1">
+<tr>
+<td id="clear" width="50%" style="background-color:#7FFFD7;" onmousedown="clearRes();">Clear</td>
+<td id="readHistory" width="50%" style="background-color:#7FFFD7;" onmousedown="readHistory();">Read history</td>
+</tr>
+</table>
+
+<table width="100%" border="1">
+<tr>
+<td></td>
+</tr>
+</table>
+
+<table width="100%" border="1">
+<tr>
+<td id="send" style="background-color:#7FFFD7;" onmousedown="sendRes();">Send</td>
+</tr>
+</table>
+
+</body>
+</html>
